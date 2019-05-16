@@ -36,17 +36,19 @@ function disableConflictingActivities(){
         if (($(this).prop('checked') === true) 
         && ($(this).prop('class') === 'tues-nine-twelve')){
             $('.tues-nine-twelve').prop('disabled', true);
-            $(this).prop('disabled', false);
-        }
-        else activitiesCheckboxes.prop('disabled', false);
-    })
-    activitiesCheckboxes.prop('checked', status).change(function(){
+            $(this).prop('disabled', false);}
+        if (($(this).prop('checked') === false) 
+        && ($(this).prop('class') === 'tues-nine-twelve')){
+            $('.tues-nine-twelve').prop('disabled', false);
+            $(this).prop('disabled', false);}
         if (($(this).prop('checked') === true) 
         && ($(this).prop('class') === 'tues-one-four')){
             $('.tues-one-four').prop('disabled', true);
-            $(this).prop('disabled', false);
-        }
-        else activitiesCheckboxes.prop('disabled', false);
+            $(this).prop('disabled', false);}
+        if (($(this).prop('checked') === false) 
+        && ($(this).prop('class') === 'tues-one-four')){
+            $('.tues-one-four').prop('disabled', false);
+            $(this).prop('disabled', false);} 
     })
 };
 
