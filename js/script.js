@@ -7,10 +7,16 @@ const tuesNineToTwelve = $(".activities label:contains('Tuesday 9am-12pm')");
 const tuesOneToFour = $(".activities label:contains('Tuesday 1pm-4pm')");
 const activitiesCheckboxes = $(".activities :checkbox");
 const registrationTotal = $(".activities").append('<div id = "total">');
+const creditCardPayment = $(".credit-card");
+const payPalPayment = $("p:contains('PayPal')");
+const bitcoinPayment = $("p:contains('Bitcoin')");
 
 //PAGE DEFAULT SETTINGS
 name.focus();
 jobRoleField.hide();
+creditCardPayment.hide();
+payPalPayment.hide();
+bitcoinPayment.hide();
 
 //FUNCTIONS
 
@@ -78,7 +84,12 @@ function chooseActivities(){
 
 //Function that displays only details relating to the selected payment option.
 function displayPaymentDetails(){
-
+    if ($("#payment").val() === "credit card") {creditCardPayment.show()}
+    else creditCardPayment.hide();
+    if ($("#payment").val() === "paypal") {payPalPayment.show()}
+    else payPalPayment.hide();
+    if ($("#payment").val() === "bitcoin") {bitcoinPayment.show()}
+    else bitcoinPayment.hide();
 };
 
 //Function that prevents the user from submitting the form if it is incomplete
