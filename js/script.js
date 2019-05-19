@@ -10,7 +10,7 @@ const creditCardNumberField = $("#cc-num");
 const zipField = $("#zip");
 const cvvField = $("#cvv");
 
-//options
+//form options
 const punsColors = $("#color option:contains('JS Puns')");
 const heartColors = $("#color option:contains('I')");
 const tuesNineToTwelve = $(".activities label:contains('Tuesday 9am-12pm')");
@@ -24,7 +24,7 @@ const bitcoinPayment = $("p:contains('Bitcoin')");
 const submitButton = $("button");
 
 //regex
-const emailRegex = /\^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/;
+const emailRegex = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]/g;
 const activitiesRegex = null;
 const creditCardRegex = null;
 const zipCodeRegex = null;
@@ -120,8 +120,6 @@ function displayPaymentDetails(){
     else bitcoinPayment.hide();
 };
 
-
-const test = true;
 //Function that prevents the user from submitting the form if it is incomplete
 //and notifies the user what information is missing.
 function formValidation(){
@@ -131,7 +129,7 @@ function formValidation(){
             event.preventDefault();
             console.log('*You must enter a name.');
         };
-        if(emailField.val().match(emailRegex)){
+        if(emailField.val().match(emailRegex) === null){
             event.preventDefault();
             console.log('*You must enter a valid email address.');
         };
