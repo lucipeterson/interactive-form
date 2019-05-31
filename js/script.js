@@ -141,8 +141,11 @@ function formValidation(){
             console.log('*You must select at least one activity.');
             console.log(checked);
         } else console.log(checked);
-        //This works but I only want it to work if the payment method
-        //Credit Card is checked: 5/31/19
+        if(paymentField.val() === 'select_method') {
+            event.preventDefault();
+            console.log('*You must select a payment method.');
+        };
+        if(paymentField.val() === 'credit card') {
             if(creditCardNumberField.val().match(creditCardRegex) === null){
                 event.preventDefault();
                 console.log('*You must enter a valid credit card number.');
@@ -155,6 +158,7 @@ function formValidation(){
                 event.preventDefault();
                 console.log('*You must enter a valid 3-digit CVV.');
             };
+        };
     });
 };
 
