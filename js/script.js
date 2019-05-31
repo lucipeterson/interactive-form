@@ -25,10 +25,9 @@ const submitButton = $("button");
 
 //regex
 const emailRegex = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]/g;
-const activitiesRegex = null;
-const creditCardRegex = null;
-const zipCodeRegex = null;
-const cvvRegex = null;
+const creditCardRegex = /[0-9]{16}/g;          
+const zipCodeRegex = /[0-9]{5}/g;
+const cvvRegex = /[0-9]{3}/g;
 
 //validation messages
 const nameValidationMessage = null;
@@ -123,7 +122,10 @@ function displayPaymentDetails(){
 //Function that prevents the user from submitting the form if it is incomplete
 //and notifies the user what information is missing.
 function formValidation(){
-    //If statement for every item I want to check:
+    //If statement for every item I want to check
+    //Still need to make the validation messages display on the page instead of
+    //the console. 5/31/19
+    let checked = activitiesCheckboxes.find('input:checked');
     submitButton.on("click", function(event){
         if(name.val() === ''){
             event.preventDefault();
@@ -133,22 +135,26 @@ function formValidation(){
             event.preventDefault();
             console.log('*You must enter a valid email address.');
         };
-        if('register value is not equal to regex'){
+        //This is broken: 5/31/19
+        if(checked.length < 1){
             event.preventDefault();
             console.log('*You must select at least one activity.');
-        };
-        if('credit card number value is not equal to regex'){
-            event.preventDefault();
-            console.log('*You must enter a valid credit card number.');
-        };
-        if('zip code value is not equal to regex'){
-            event.preventDefault();
-            console.log('*You must enter a valid 5-digit zip code.');
-        };
-        if('cvv value is not equal to regex'){
-            event.preventDefault();
-            console.log('*You must enter a valid 3-digit CVV.');
-        };
+            console.log(checked);
+        } else console.log(checked);
+        //This works but I only want it to work if the payment method
+        //Credit Card is checked: 5/31/19
+            if(creditCardNumberField.val().match(creditCardRegex) === null){
+                event.preventDefault();
+                console.log('*You must enter a valid credit card number.');
+            };
+            if(zipField.val().match(zipCodeRegex) === null){
+                event.preventDefault();
+                console.log('*You must enter a valid 5-digit zip code.');
+            };
+            if(cvvField.val().match(cvvRegex) === null){
+                event.preventDefault();
+                console.log('*You must enter a valid 3-digit CVV.');
+            };
     });
 };
 
