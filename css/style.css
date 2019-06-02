@@ -135,6 +135,8 @@ button:hover {
 	margin-top: 1.25em;
 }
 
+.invalid {font-size: 1em; color: red}
+
 /* ================================= 
   Helper Classes
 ==================================== */

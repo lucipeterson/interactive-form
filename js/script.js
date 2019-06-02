@@ -17,6 +17,7 @@ const tuesNineToTwelve = $(".activities label:contains('Tuesday 9am-12pm')");
 const tuesOneToFour = $(".activities label:contains('Tuesday 1pm-4pm')");
 
 //displayed elements
+let totalCost = 0;
 const registrationTotal = $(".activities").append('<div id = "total">');
 const creditCardPayment = $(".credit-card");
 const payPalPayment = $("p:contains('PayPal')");
@@ -30,12 +31,13 @@ const zipCodeRegex = /[0-9]{5}/g;
 const cvvRegex = /[0-9]{3}/g;
 
 //validation messages
-const nameValidationMessage = null;
-const emailValidationMessage = null;
-const activitiesValidationMessage = null;
-const creditCardValidationMessage = null;
-const zipCodeValidationMessage = null;
-const cvvValidationMessage = null;
+const nameValidationMessage = $('header').append('<div id = "name-invalid" class = "invalid">');
+const emailValidationMessage = $('header').append('<div id = "email-invalid" class = "invalid">');
+const activitiesValidationMessage = $('header').append('<div id = "activities-invalid" class = "invalid">');
+const paymentMethodValidationMessage = $('header').append('<div id = "payment-invalid" class = "invalid">');
+const creditCardValidationMessage = $('header').append('<div id = "cc-num-invalid" class = "invalid">');
+const zipCodeValidationMessage = $('header').append('<div id = "zip-invalid" class = "invalid">');
+const cvvValidationMessage = $('header').append('<div id = "cvv-invalid" class = "invalid">');
 
 //PAGE DEFAULT SETTINGS
 name.focus();
@@ -64,7 +66,6 @@ function displayColorOptions(){
 //Function that restricts user from selecting conflicting activities and adds up
 //the total cost of the activities that are chosen.
 function chooseActivities(){
-    let totalCost = 0;
     tuesNineToTwelve.find(':first-child').attr('class','tues-nine-twelve');
     tuesOneToFour.find(':first-child').attr('class','tues-one-four');
     activitiesCheckboxes.prop('checked', status).change(function(){
@@ -122,42 +123,51 @@ function displayPaymentDetails(){
 //Function that prevents the user from submitting the form if it is incomplete
 //and notifies the user what information is missing.
 function formValidation(){
-    //If statement for every item I want to check
-    //Still need to make the validation messages display on the page instead of
-    //the console. 5/31/19
-    let checked = activitiesCheckboxes.find('input:checked');
+    //If-else statement for every item I want to check:
     submitButton.on("click", function(event){
         if(name.val() === ''){
             event.preventDefault();
+            $('#name-invalid').html('<p>*You must enter a name.</p>');
+            $(window).scrollTop(0);
             console.log('*You must enter a name.');
-        };
+        } else $('#name-invalid').html('');
         if(emailField.val().match(emailRegex) === null){
             event.preventDefault();
+            $('#email-invalid').html('<p>*You must enter a valid email address.</p>');
+            $(window).scrollTop(0);
             console.log('*You must enter a valid email address.');
-        };
-        //This is broken: 5/31/19
-        if(checked.length < 1){
+        } else $('#email-invalid').html('');
+        if (totalCost === 0) {
             event.preventDefault();
-            console.log('*You must select at least one activity.');
-            console.log(checked);
-        } else console.log(checked);
+            $('#activities-invalid').html('<p>*You must choose at least one activity.</p>');
+            $(window).scrollTop(0);
+            console.log('*You must choose at least one activity.');
+        } else $('#activities-invalid').html('');
         if(paymentField.val() === 'select_method') {
             event.preventDefault();
+            $('#payment-invalid').html('<p>*You must select a payment method.</p>');
+            $(window).scrollTop(0);
             console.log('*You must select a payment method.');
-        };
+        } else $('#payment-invalid').html('');
         if(paymentField.val() === 'credit card') {
             if(creditCardNumberField.val().match(creditCardRegex) === null){
                 event.preventDefault();
+                $('#cc-num-invalid').html('<p>*You must enter a valid credit card number.</p>');
+                $(window).scrollTop(0);
                 console.log('*You must enter a valid credit card number.');
-            };
+            } else $('#cc-num-invalid').html('');
             if(zipField.val().match(zipCodeRegex) === null){
                 event.preventDefault();
+                $('#zip-invalid').html('<p>*You must enter a valid 5-digit zip code.</p>');
+                $(window).scrollTop(0);
                 console.log('*You must enter a valid 5-digit zip code.');
-            };
+            } else $('#zip-invalid').html('');
             if(cvvField.val().match(cvvRegex) === null){
                 event.preventDefault();
+                $('#cvv-invalid').html('<p>*You must enter a valid 3-digit CVV.</p>');
+                $(window).scrollTop(0);
                 console.log('*You must enter a valid 3-digit CVV.');
-            };
+            } else $('#cvv-invalid').html('');
         };
     });
 };
