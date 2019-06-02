@@ -45,6 +45,7 @@ jobRoleField.hide();
 creditCardPayment.hide();
 payPalPayment.hide();
 bitcoinPayment.hide();
+paymentField.val('credit card');
 
 //FUNCTIONS
 
