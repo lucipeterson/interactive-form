@@ -136,6 +136,7 @@ button:hover {
 }
 
 .invalid {font-size: 1em; color: red}
+.invalid-field {border: solid 2px red; background: pink}
 
 /* ================================= 
   Helper Classes
